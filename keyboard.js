@@ -1,6 +1,3 @@
-// forked from RobertWHurst/KeyboardJS
-// edits by me marked with comments "//ErnWong - description" TODO: remove these comments afterwords
-
 /**
  * Title: KeyboardJS
  * Version: v0.4.1
@@ -139,7 +136,7 @@
 			"186": ["semicolon", ";"],
 			"187": ["equal", "equalsign", "="],
 			"188": ["comma", ","],
-			"189": ["dash", "minus", "subtract", "-"], //ErnWong - added minus and subtract
+			"189": ["dash", "minus", "subtract", "-"],
 			"190": ["period", "."],
 			"191": ["slash", "forwardslash", "/"],
 			"192": ["graveaccent", "`"],
@@ -211,14 +208,13 @@
 			['shift + =', ["plus", "+"]],
 			['shift + (', ["opencurlybrace", "opencurlybracket", "{"]],
 			['shift + )', ["closecurlybrace", "closecurlybracket", "}"]],
-			['shift + \\', ["verticalbar", "pipe", "|"]], //ErnWong - added pipe
+			['shift + \\', ["verticalbar", "pipe", "|"]],
 			['shift + ;', ["colon", ":"]],
 			['shift + \'', ["quotationmark", "\""]],
-			['shift + !,', ["openanglebracket", "greaterthan", "gt", "<"]], //ErnWong - added greaterthan and gt
-			['shift + .', ["closeanglebracket", "lessthan", "lt", ">"]], //ErnWong - added lessthan and lt
+			['shift + !,', ["openanglebracket", "greaterthan", "gt", "<"]],
+			['shift + .', ["closeanglebracket", "lessthan", "lt", ">"]],
 			['shift + /', ["questionmark", "?"]]
 		],
-		//ErnWong - exceptions
 		"exceptions": [
 			{
 				"test": function testForFirefox() {
@@ -916,7 +912,7 @@
 		if(typeof localeMap !== 'object') { throw new Error('Cannot register ' + localeName + ' locale. The locale map must be an object.'); }
 		if(typeof localeMap.map !== 'object') { throw new Error('Cannot register ' + localeName + ' locale. The locale map is invalid.'); }
 
-		//ErnWong: modify the map according to exceptions
+		//modify the map according to exceptions
 		for ( var i = 0, exceptions = localeMap.exceptions, len = exceptions.length; i < len; i++ ) {
 			if ( exceptions[i].test() === true ) {
 				for ( var id in exceptions[i].map ) { //evil?
