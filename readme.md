@@ -10,6 +10,7 @@ KeyboardJS is a easy to use keyboard wrapper. It features support for the follow
 + Macro keys - Support for adding vurtual keys backed by a key combo instead of a physical key.
 + Keyboard locales - Support for multiple locales. Comes with US locale.
 
+
 ## Examples
 
 ### Key Binding
@@ -37,6 +38,7 @@ KeyboardJS.on('ctrl + m', function() {
 >>> 'ctrl m!'
 *** User releases 'ctrl' and 'm'
 ```
+
 ### Ordered Combo Binding
 
 ```javascript
@@ -78,8 +80,9 @@ KeyboardJS.on('shift + ctrl > m', function() {
 *** User releases 'shift', 'ctrl' and 'm'
 ```
 
-Methods
--------
+
+
+## Methods
 
 
 
@@ -94,10 +97,13 @@ Binds any key or key combo. See 'keyCombo' definition below for details. The onD
 Both the onDownCallback and the onUpCallback are passed three arguments. The first is the key event, the second is the keys pressed, and the third is the key combo string.
 
 ###### Returned
+
 Returns an object containing the following methods.
 
 * clear() - Removes the key or key combo binding.
 * on() - Allows you to bind to the keyup and keydown event of the given combo. An alternative to adding the onDownCallback and onUpCallback.
+
+
 
 ### KeyboardJS.onPress
 
@@ -107,6 +113,8 @@ Returns an object containing the following methods.
 
 Acts almost exactly same way as 'on' method, except fires the callbacks only once. I.e. if you hold down the combo, the down callback is not fired repeatedly, and also up callback is fired only once when the combo is released.
 
+
+
 ### KeyboardJS.activeKeys
 
 ###### Usage
@@ -114,6 +122,8 @@ Acts almost exactly same way as 'on' method, except fires the callbacks only onc
     KeyboardJS.activeKeys() => array activeKeys
 
 Returns an array of active keys by name.
+
+
 
 ### KeyboardJS.clear
 
@@ -134,6 +144,8 @@ Please note that if you are just trying to remove a single binding should use th
     KeyboardJS.clear.key(string keyCombo)
 
 Removes all bindings that use the given key.
+
+
 
 ### KeyboardJS.locale
 
@@ -219,8 +231,7 @@ Stringifys a parsed key combo.
 
 
 
-Definitions
------------
+## Definitions
 
 ### keyCombo
 
@@ -234,7 +245,7 @@ A string containing key names separated by whitespace, `>`, `+`, and `,`.
 * 'a + b, c + d' - binds to the 'a', 'b', 'c' and 'd' keys. Pressing either the 'a' key and the 'b' key,
 or the 'c' and the 'd' key will match this keyCombo.
 
-###localeDefinitions
+### localeDefinitions
 
 An object that maps keyNames to their keycode and stores locale specific macros. Used for mapping keys on different locales.
 
@@ -253,8 +264,9 @@ An object that maps keyNames to their keycode and stores locale specific macros.
         ]
     }
 
-Language Support
-----------------
+
+
+## Language Support
 
 KeyboardJS can support any locale, however out of the box it just comes with the US locale (for now..,). Adding a new
 locale is easy. Map your keyboard to an object and pass it to KeyboardJS.locale.register('myLocale', {/*localeDefinition*/}) then call
@@ -263,8 +275,9 @@ KeyboardJS.locale('myLocale').
 If you create a new locale please consider sending me a pull request or submit it to the
 [issue tracker](http://github.com/RobertWHurst/KeyboardJS/issues) so I can add it to the library.
 
-Credits
--------
+
+
+## Credits
 
 I made this to enable better access to key controls in my applications. I'd like to share
 it with fellow devs. Feel free to fork this project and make your own changes.

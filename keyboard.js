@@ -1,11 +1,11 @@
 /**
  * Title: KeyboardJS
- * Version: v0.4.1
+ * Version: v0.4.2
  * Description: KeyboardJS is a flexible and easy to use keyboard binding
  * library.
  * Author: Robert Hurst.
  *
- * Copyright 2011, Robert William Hurst
+ * Copyright 2011-2013, Robert William Hurst
  * Licenced under the BSD License.
  * See https://raw.github.com/RobertWHurst/KeyboardJS/master/license.txt
  */
@@ -527,7 +527,7 @@
 		 * @param  {String}	eventName
 		 * @return {Object}	subBinding
 		 */
-		function on(eventName    ) {
+		function on(eventName) {
 			var api = {}, callbacks, cI, bI;
 
 			//validate event name
