@@ -1,3 +1,6 @@
+// forked from RobertWHurst/KeyboardJS
+// edits by me marked with comments "//ErnWong - description" TODO: remove these comments afterwords
+
 /**
  * Title: KeyboardJS
  * Version: v0.4.1
@@ -136,7 +139,7 @@
 			"186": ["semicolon", ";"],
 			"187": ["equal", "equalsign", "="],
 			"188": ["comma", ","],
-			"189": ["dash", "-"],
+			"189": ["dash", "minus", "subtract", "-"], //ErnWong - added minus and subtract
 			"190": ["period", "."],
 			"191": ["slash", "forwardslash", "/"],
 			"192": ["graveaccent", "`"],
@@ -196,7 +199,7 @@
 			['shift + `', ["tilde", "~"]],
 			['shift + 1', ["exclamation", "exclamationpoint", "!"]],
 			['shift + 2', ["at", "@"]],
-			['shift + 3', ["number", "#"]],
+			['shift + 3', ["number", "hash", "#"]],
 			['shift + 4', ["dollar", "dollars", "dollarsign", "$"]],
 			['shift + 5', ["percent", "%"]],
 			['shift + 6', ["caret", "^"]],
@@ -208,12 +211,25 @@
 			['shift + =', ["plus", "+"]],
 			['shift + (', ["opencurlybrace", "opencurlybracket", "{"]],
 			['shift + )', ["closecurlybrace", "closecurlybracket", "}"]],
-			['shift + \\', ["verticalbar", "|"]],
+			['shift + \\', ["verticalbar", "pipe", "|"]], //ErnWong - added pipe
 			['shift + ;', ["colon", ":"]],
 			['shift + \'', ["quotationmark", "\""]],
-			['shift + !,', ["openanglebracket", "<"]],
-			['shift + .', ["closeanglebracket", ">"]],
+			['shift + !,', ["openanglebracket", "greaterthan", "gt", "<"]], //ErnWong - added greaterthan and gt
+			['shift + .', ["closeanglebracket", "lessthan", "lt", ">"]], //ErnWong - added lessthan and lt
 			['shift + /', ["questionmark", "?"]]
+		],
+		//ErnWong - exceptions
+		"exceptions": [
+			{
+				"test": function testForFirefox() {
+					return navigator.userAgent && navigator.userAgent.toLowerCase().indexOf("firefox") > -1;
+				},
+				"map": {
+					"59": ["semicolon", ";"],
+					"61": ["equal", "equalsign", "="],
+					"173": ["dash", "minus", "subtract", "-"]
+				}
+			}
 		]
 	};
 	//a-z and A-Z
@@ -899,6 +915,18 @@
 		if(typeof localeName !== 'string') { throw new Error('Cannot register new locale. The locale name must be a string.'); }
 		if(typeof localeMap !== 'object') { throw new Error('Cannot register ' + localeName + ' locale. The locale map must be an object.'); }
 		if(typeof localeMap.map !== 'object') { throw new Error('Cannot register ' + localeName + ' locale. The locale map is invalid.'); }
+
+		//ErnWong: modify the map according to exceptions
+		for ( var i = 0, exceptions = localeMap.exceptions, len = exceptions.length; i < len; i++ ) {
+			if ( exceptions[i].test() === true ) {
+				for ( var id in exceptions[i].map ) { //evil?
+					localeMap.map[id] = exceptions[i].map[id];
+				}
+				for ( var id in exceptions[i].macros ) { //evil?
+					localeMap.macros[id] = exceptions[i].macros[id];
+				}
+			}
+		}
 
 		//stash the locale
 		if(!localeMap.macros) { localeMap.macros = []; }
