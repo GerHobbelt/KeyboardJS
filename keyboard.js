@@ -101,7 +101,6 @@
 	// http://github.com/RobertWhurst/KeyboardJS/issues/
 	usLocale = {
 		"map": {
-
 			//general
 			"3": ["cancel"],
 			"8": ["backspace"],
@@ -191,7 +190,6 @@
 			"123": ["f12"]
 		},
 		"macros": [
-
 			//secondary key symbols
 			['shift + `', ["tilde", "~"]],
 			['shift + 1', ["exclamation", "exclamationpoint", "!"]],
