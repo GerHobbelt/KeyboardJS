@@ -15,7 +15,7 @@
 	[].indexOf||(Array.prototype.indexOf=function(a,b,c){for(c=this.length,b=(c+~~b)%c;b<c&&(!(b in this)||this[b]!==a);b++);return b^c?b:-1;});
 
 	//AMD
-	if(typeof define === 'function' && define.amd) { define(constructAMD); }
+	if (typeof define === 'function' && define.amd) { define(constructAMD); }
 
 	//GLOBAL
 	else { constructGlobal(); }
@@ -62,8 +62,8 @@
 
 				newNamespaces = Array.prototype.slice.apply(arguments);
 
-				for(nI = 0; nI < namespaces.length; nI += 1) {
-					if(typeof previousValues[namespaces[nI]] === 'undefined') {
+				for (nI = 0; nI < namespaces.length; nI += 1) {
+					if (typeof previousValues[namespaces[nI]] === 'undefined') {
 						delete context[namespaces[nI]];
 					} else {
 						context[namespaces[nI]] = previousValues[namespaces[nI]];
@@ -72,8 +72,8 @@
 
 				previousValues = {};
 
-				for(nI = 0; nI < newNamespaces.length; nI += 1) {
-					if(typeof newNamespaces[nI] !== 'string') {
+				for (nI = 0; nI < newNamespaces.length; nI += 1) {
+					if (typeof newNamespaces[nI] !== 'string') {
 						throw new Error('Cannot replace namespaces. All new namespaces must be strings.');
 					}
 					previousValues[newNamespaces[nI]] = context[newNamespaces[nI]];
@@ -279,13 +279,13 @@
 	 * Enables KeyboardJS
 	 */
 	function enable() {
-		if(window.addEventListener) {
+		if (window.addEventListener) {
 			document.addEventListener('keydown', keydown, false);
 			document.addEventListener('keyup', keyup, false);
 			window.addEventListener('blur', reset, false);
 			window.addEventListener('webkitfullscreenchange', reset, false);
 			window.addEventListener('mozfullscreenchange', reset, false);
-		} else if(window.attachEvent) {
+		} else if (window.attachEvent) {
 			document.attachEvent('onkeydown', keydown);
 			document.attachEvent('onkeyup', keyup);
 			window.attachEvent('onblur', reset);
@@ -297,13 +297,13 @@
 	 */
 	function disable() {
 		reset();
-		if(window.removeEventListener) {
+		if (window.removeEventListener) {
 			document.removeEventListener('keydown', keydown, false);
 			document.removeEventListener('keyup', keyup, false);
 			window.removeEventListener('blur', reset, false);
 			window.removeEventListener('webkitfullscreenchange', reset, false);
 			window.removeEventListener('mozfullscreenchange', reset, false);
-		} else if(window.detachEvent) {
+		} else if (window.detachEvent) {
 			document.detachEvent('onkeydown', keydown);
 			document.detachEvent('onkeyup', keyup);
 			window.detachEvent('onblur', reset);
@@ -481,19 +481,19 @@
 		subCombo;
 
 		//break the combo down into a combo array
-		if(typeof keyCombo === 'string') {
+		if (typeof keyCombo === 'string') {
 			keyCombo = parseKeyCombo(keyCombo);
 		}
 
 		//bind each sub combo contained within the combo string
-		for(kI = 0; kI < keyCombo.length; kI += 1) {
+		for (kI = 0; kI < keyCombo.length; kI += 1) {
 			binding = {};
 
 			//stringify the combo again
 			subCombo = stringifyKeyCombo([keyCombo[kI]]);
 
 			//validate the sub combo
-			if(typeof subCombo !== 'string') { throw new Error('Failed to bind key combo. The key combo must be string.'); }
+			if (typeof subCombo !== 'string') { throw new Error('Failed to bind key combo. The key combo must be string.'); }
 
 			//create the binding
 			binding.keyCombo = subCombo;
@@ -501,8 +501,8 @@
 			binding.keyUpCallback = [];
 
 			//inject the key down and key up callbacks if given
-			if(keyDownCallback) { binding.keyDownCallback.push(keyDownCallback); }
-			if(keyUpCallback) { binding.keyUpCallback.push(keyUpCallback); }
+			if (keyDownCallback) { binding.keyDownCallback.push(keyDownCallback); }
+			if (keyUpCallback) { binding.keyUpCallback.push(keyUpCallback); }
 
 			//stash the new binding
 			bindings.push(binding);
@@ -519,7 +519,7 @@
 		 */
 		function clear() {
 			var bI;
-			for(bI = 0; bI < subBindings.length; bI += 1) {
+			for (bI = 0; bI < subBindings.length; bI += 1) {
 				bindings.splice(bindings.indexOf(subBindings[bI]), 1);
 			}
 		}
@@ -535,21 +535,21 @@
 			var api = {}, callbacks, cI, bI;
 
 			//validate event name
-			if(typeof eventName !== 'string') { throw new Error('Cannot bind callback. The event name must be a string.'); }
-			if(eventName !== 'keyup' && eventName !== 'keydown') { throw new Error('Cannot bind callback. The event name must be a "keyup" or "keydown".'); }
+			if (typeof eventName !== 'string') { throw new Error('Cannot bind callback. The event name must be a string.'); }
+			if (eventName !== 'keyup' && eventName !== 'keydown') { throw new Error('Cannot bind callback. The event name must be a "keyup" or "keydown".'); }
 
 			//gather the callbacks
 			callbacks = Array.prototype.slice.apply(arguments, [1]);
 
 			//stash each the new binding
-			for(cI = 0; cI < callbacks.length; cI += 1) {
-				if(typeof callbacks[cI] === 'function') {
-					if(eventName === 'keyup') {
-						for(bI = 0; bI < subBindings.length; bI += 1) {
+			for (cI = 0; cI < callbacks.length; cI += 1) {
+				if (typeof callbacks[cI] === 'function') {
+					if (eventName === 'keyup') {
+						for (bI = 0; bI < subBindings.length; bI += 1) {
 							subBindings[bI].keyUpCallback.push(callbacks[cI]);
 						}
-					} else if(eventName === 'keydown') {
-						for(bI = 0; bI < subBindings.length; bI += 1) {
+					} else if (eventName === 'keydown') {
+						for (bI = 0; bI < subBindings.length; bI += 1) {
 							subBindings[bI].keyDownCallback.push(callbacks[cI]);
 						}
 					}
@@ -565,14 +565,14 @@
 			 */
 			function clear() {
 				var cI, bI;
-				for(cI = 0; cI < callbacks.length; cI += 1) {
-					if(typeof callbacks[cI] === 'function') {
-						if(eventName === 'keyup') {
-							for(bI = 0; bI < subBindings.length; bI += 1) {
+				for (cI = 0; cI < callbacks.length; cI += 1) {
+					if (typeof callbacks[cI] === 'function') {
+						if (eventName === 'keyup') {
+							for (bI = 0; bI < subBindings.length; bI += 1) {
 								subBindings[bI].keyUpCallback.splice(subBindings[bI].keyUpCallback.indexOf(callbacks[cI]), 1);
 							}
 						} else {
-							for(bI = 0; bI < subBindings.length; bI += 1) {
+							for (bI = 0; bI < subBindings.length; bI += 1) {
 								subBindings[bI].keyDownCallback.splice(subBindings[bI].keyDownCallback.indexOf(callbacks[cI]), 1);
 							}
 						}
@@ -589,9 +589,9 @@
 	 */
 	function removeBindingByKeyCombo(keyCombo) {
 		var bI, binding, keyName;
-		for(bI = 0; bI < bindings.length; bI += 1) {
+		for (bI = 0; bI < bindings.length; bI += 1) {
 			binding = bindings[bI];
-			if(compareCombos(keyCombo, binding.keyCombo)) {
+			if (compareCombos(keyCombo, binding.keyCombo)) {
 				bindings.splice(bI, 1); bI -= 1;
 			}
 		}
@@ -607,11 +607,11 @@
 	 */
 	function removeBindingByKeyName(keyName) {
 		var bI, kI, binding;
-		if(keyName) {
-			for(bI = 0; bI < bindings.length; bI += 1) {
+		if (keyName) {
+			for (bI = 0; bI < bindings.length; bI += 1) {
 				binding = bindings[bI];
-				for(kI = 0; kI < binding.keyCombo.length; kI += 1) {
-					if(binding.keyCombo[kI].indexOf(keyName) > -1) {
+				for (kI = 0; kI < binding.keyCombo.length; kI += 1) {
+					if (binding.keyCombo[kI].indexOf(keyName) > -1) {
 						bindings.splice(bI, 1); bI -= 1;
 						break;
 					}
@@ -632,38 +632,38 @@
 		index, sortedBindings = [], bindingWeight;
 
 		remainingKeys = [].concat(activeKeys);
-		for(bI = 0; bI < bindings.length; bI += 1) {
+		for (bI = 0; bI < bindings.length; bI += 1) {
 			bindingWeight = extractComboKeys(bindings[bI].keyCombo).length;
-			if(!sortedBindings[bindingWeight]) { sortedBindings[bindingWeight] = []; }
+			if (!sortedBindings[bindingWeight]) { sortedBindings[bindingWeight] = []; }
 			sortedBindings[bindingWeight].push(bindings[bI]);
 		}
-		for(sBI = sortedBindings.length - 1; sBI >= 0; sBI -= 1) {
-			if(!sortedBindings[sBI]) { continue; }
-			for(bI = 0; bI < sortedBindings[sBI].length; bI += 1) {
+		for (sBI = sortedBindings.length - 1; sBI >= 0; sBI -= 1) {
+			if (!sortedBindings[sBI]) { continue; }
+			for (bI = 0; bI < sortedBindings[sBI].length; bI += 1) {
 				binding = sortedBindings[sBI][bI];
 				bindingKeys = extractComboKeys(binding.keyCombo);
 				bindingKeysSatisfied = true;
-				for(kI = 0; kI < bindingKeys.length; kI += 1) {
-					if(remainingKeys.indexOf(bindingKeys[kI]) === -1) {
+				for (kI = 0; kI < bindingKeys.length; kI += 1) {
+					if (remainingKeys.indexOf(bindingKeys[kI]) === -1) {
 						bindingKeysSatisfied = false;
 						break;
 					}
 				}
-				if(bindingKeysSatisfied && isSatisfiedCombo(binding.keyCombo)) {
+				if (bindingKeysSatisfied && isSatisfiedCombo(binding.keyCombo)) {
 					activeBindings.push(binding);
-					for(kI = 0; kI < bindingKeys.length; kI += 1) {
+					for (kI = 0; kI < bindingKeys.length; kI += 1) {
 						index = remainingKeys.indexOf(bindingKeys[kI]);
-						if(index > -1) {
+						if (index > -1) {
 							remainingKeys.splice(index, 1);
 							kI -= 1;
 						}
 					}
-					for(cI = 0; cI < binding.keyDownCallback.length; cI += 1) {
+					for (cI = 0; cI < binding.keyDownCallback.length; cI += 1) {
 						if (binding.keyDownCallback[cI](event, getActiveKeys(), binding.keyCombo) === false) {
 							killEventBubble = true;
 						}
 					}
-					if(killEventBubble === true) {
+					if (killEventBubble === true) {
 						event.preventDefault();
 						event.stopPropagation();
 					}
@@ -679,15 +679,15 @@
 	 */
 	function pruneBindings(event) {
 		var bI, cI, binding, killEventBubble;
-		for(bI = 0; bI < activeBindings.length; bI += 1) {
+		for (bI = 0; bI < activeBindings.length; bI += 1) {
 			binding = activeBindings[bI];
-			if(isSatisfiedCombo(binding.keyCombo) === false) {
-				for(cI = 0; cI < binding.keyUpCallback.length; cI += 1) {
+			if (isSatisfiedCombo(binding.keyCombo) === false) {
+				for (cI = 0; cI < binding.keyUpCallback.length; cI += 1) {
 					if (binding.keyUpCallback[cI](event, getActiveKeys(), binding.keyCombo) === false) {
 						killEventBubble = true;
 					}
 				}
-				if(killEventBubble === true) {
+				if (killEventBubble === true) {
 					event.preventDefault();
 					event.stopPropagation();
 				}
@@ -713,13 +713,13 @@
 		var cI, sI, kI;
 		keyComboArrayA = parseKeyCombo(keyComboArrayA);
 		keyComboArrayB = parseKeyCombo(keyComboArrayB);
-		if(keyComboArrayA.length !== keyComboArrayB.length) { return false; }
-		for(cI = 0; cI < keyComboArrayA.length; cI += 1) {
-			if(keyComboArrayA[cI].length !== keyComboArrayB[cI].length) { return false; }
-			for(sI = 0; sI < keyComboArrayA[cI].length; sI += 1) {
-				if(keyComboArrayA[cI][sI].length !== keyComboArrayB[cI][sI].length) { return false; }
-				for(kI = 0; kI < keyComboArrayA[cI][sI].length; kI += 1) {
-					if(keyComboArrayB[cI][sI].indexOf(keyComboArrayA[cI][sI][kI]) === -1) { return false; }
+		if (keyComboArrayA.length !== keyComboArrayB.length) { return false; }
+		for (cI = 0; cI < keyComboArrayA.length; cI += 1) {
+			if (keyComboArrayA[cI].length !== keyComboArrayB[cI].length) { return false; }
+			for (sI = 0; sI < keyComboArrayA[cI].length; sI += 1) {
+				if (keyComboArrayA[cI][sI].length !== keyComboArrayB[cI][sI].length) { return false; }
+				for (kI = 0; kI < keyComboArrayA[cI][sI].length; kI += 1) {
+					if (keyComboArrayB[cI][sI].indexOf(keyComboArrayA[cI][sI][kI]) === -1) { return false; }
 				}
 			}
 		}
@@ -735,21 +735,21 @@
 	function isSatisfiedCombo(keyCombo) {
 		var cI, sI, stage, kI, stageOffset = 0, index, comboMatches;
 		keyCombo = parseKeyCombo(keyCombo);
-		for(cI = 0; cI < keyCombo.length; cI += 1) {
+		for (cI = 0; cI < keyCombo.length; cI += 1) {
 			comboMatches = true;
 			stageOffset = 0;
-			for(sI = 0; sI < keyCombo[cI].length; sI += 1) {
+			for (sI = 0; sI < keyCombo[cI].length; sI += 1) {
 				stage = [].concat(keyCombo[cI][sI]);
-				for(kI = stageOffset; kI < activeKeys.length; kI += 1) {
+				for (kI = stageOffset; kI < activeKeys.length; kI += 1) {
 					index = stage.indexOf(activeKeys[kI]);
-					if(index > -1) {
+					if (index > -1) {
 						stage.splice(index, 1);
 						stageOffset = kI;
 					}
 				}
-				if(stage.length !== 0) { comboMatches = false; break; }
+				if (stage.length !== 0) { comboMatches = false; break; }
 			}
-			if(comboMatches) { return true; }
+			if (comboMatches) { return true; }
 		}
 		return false;
 	}
@@ -763,8 +763,8 @@
 	function extractComboKeys(keyCombo) {
 		var cI, sI, kI, keys = [];
 		keyCombo = parseKeyCombo(keyCombo);
-		for(cI = 0; cI < keyCombo.length; cI += 1) {
-			for(sI = 0; sI < keyCombo[cI].length; sI += 1) {
+		for (cI = 0; cI < keyCombo.length; cI += 1) {
+			for (sI = 0; sI < keyCombo[cI].length; sI += 1) {
 				keys = keys.concat(keyCombo[cI][sI]);
 			}
 		}
@@ -783,45 +783,45 @@
 	function parseKeyCombo(keyCombo) {
 		var s = keyCombo, i = 0, op = 0, ws = false, nc = false, combos = [], combo = [], stage = [], key = '';
 
-		if(typeof keyCombo === 'object' && typeof keyCombo.push === 'function') { return keyCombo; }
-		if(typeof keyCombo !== 'string') { throw new Error('Cannot parse "keyCombo" because its type is "' + (typeof keyCombo) + '". It must be a "string".'); }
+		if (typeof keyCombo === 'object' && typeof keyCombo.push === 'function') { return keyCombo; }
+		if (typeof keyCombo !== 'string') { throw new Error('Cannot parse "keyCombo" because its type is "' + (typeof keyCombo) + '". It must be a "string".'); }
 
 		//remove leading whitespace
 		while(s.charAt(i) === ' ') { i += 1; }
 		while(true) {
-			if(s.charAt(i) === ' ') {
+			if (s.charAt(i) === ' ') {
 				//white space & next combo op
 				while(s.charAt(i) === ' ') { i += 1; }
 				ws = true;
-			} else if(s.charAt(i) === ',') {
-				if(op || nc) { throw new Error('Failed to parse key combo. Unexpected , at character index ' + i + '.'); }
+			} else if (s.charAt(i) === ',') {
+				if (op || nc) { throw new Error('Failed to parse key combo. Unexpected , at character index ' + i + '.'); }
 				nc = true;
 				i += 1;
-			} else if(s.charAt(i) === '+') {
+			} else if (s.charAt(i) === '+') {
 				//next key
-				if(key.length) { stage.push(key); key = ''; }
-				if(op || nc) { throw new Error('Failed to parse key combo. Unexpected + at character index ' + i + '.'); }
+				if (key.length) { stage.push(key); key = ''; }
+				if (op || nc) { throw new Error('Failed to parse key combo. Unexpected + at character index ' + i + '.'); }
 				op = true;
 				i += 1;
-			} else if(s.charAt(i) === '>') {
+			} else if (s.charAt(i) === '>') {
 				//next stage op
-				if(key.length) { stage.push(key); key = ''; }
-				if(stage.length) { combo.push(stage); stage = []; }
-				if(op || nc) { throw new Error('Failed to parse key combo. Unexpected > at character index ' + i + '.'); }
+				if (key.length) { stage.push(key); key = ''; }
+				if (stage.length) { combo.push(stage); stage = []; }
+				if (op || nc) { throw new Error('Failed to parse key combo. Unexpected > at character index ' + i + '.'); }
 				op = true;
 				i += 1;
-			} else if(i < s.length - 1 && s.charAt(i) === '!' && (s.charAt(i + 1) === '>' || s.charAt(i + 1) === ',' || s.charAt(i + 1) === '+')) {
+			} else if (i < s.length - 1 && s.charAt(i) === '!' && (s.charAt(i + 1) === '>' || s.charAt(i + 1) === ',' || s.charAt(i + 1) === '+')) {
 				key += s.charAt(i + 1);
 				op = false;
 				ws = false;
 				nc = false;
 				i += 2;
-			} else if(i < s.length && s.charAt(i) !== '+' && s.charAt(i) !== '>' && s.charAt(i) !== ',' && s.charAt(i) !== ' ') {
+			} else if (i < s.length && s.charAt(i) !== '+' && s.charAt(i) !== '>' && s.charAt(i) !== ',' && s.charAt(i) !== ' ') {
 				//end combo
-				if(op === false && ws === true || nc === true) {
-					if(key.length) { stage.push(key); key = ''; }
-					if(stage.length) { combo.push(stage); stage = []; }
-					if(combo.length) { combos.push(combo); combo = []; }
+				if (op === false && ws === true || nc === true) {
+					if (key.length) { stage.push(key); key = ''; }
+					if (stage.length) { combo.push(stage); stage = []; }
+					if (combo.length) { combos.push(combo); combo = []; }
 				}
 				op = false;
 				ws = false;
@@ -837,10 +837,10 @@
 				continue;
 			}
 			//end of combos string
-			if(i >= s.length) {
-				if(key.length) { stage.push(key); key = ''; }
-				if(stage.length) { combo.push(stage); stage = []; }
-				if(combo.length) { combos.push(combo); combo = []; }
+			if (i >= s.length) {
+				if (key.length) { stage.push(key); key = ''; }
+				if (stage.length) { combo.push(stage); stage = []; }
+				if (combo.length) { combos.push(combo); combo = []; }
 				break;
 			}
 		}
@@ -855,11 +855,11 @@
 	 */
 	function stringifyKeyCombo(keyComboArray) {
 		var cI, ccI, output = [];
-		if(typeof keyComboArray === 'string') { return keyComboArray; }
-		if(typeof keyComboArray !== 'object' || typeof keyComboArray.push !== 'function') { throw new Error('Cannot stringify key combo.'); }
-		for(cI = 0; cI < keyComboArray.length; cI += 1) {
+		if (typeof keyComboArray === 'string') { return keyComboArray; }
+		if (typeof keyComboArray !== 'object' || typeof keyComboArray.push !== 'function') { throw new Error('Cannot stringify key combo.'); }
+		for (cI = 0; cI < keyComboArray.length; cI += 1) {
 			output[cI] = [];
-			for(ccI = 0; ccI < keyComboArray[cI].length; ccI += 1) {
+			for (ccI = 0; ccI < keyComboArray[cI].length; ccI += 1) {
 				output[cI][ccI] = keyComboArray[cI][ccI].join(' + ');
 			}
 			output[cI] = output[cI].join(' > ');
@@ -886,8 +886,8 @@
 	 * @param {String}	keyName	The key name string.
 	 */
 	function addActiveKey(keyName) {
-		if(keyName.match(/\s/)) { throw new Error('Cannot add key name ' + keyName + ' to active keys because it contains whitespace.'); }
-		if(activeKeys.indexOf(keyName) > -1) { return; }
+		if (keyName.match(/\s/)) { throw new Error('Cannot add key name ' + keyName + ' to active keys because it contains whitespace.'); }
+		if (activeKeys.indexOf(keyName) > -1) { return; }
 		activeKeys.push(keyName);
 	}
 
@@ -897,7 +897,7 @@
 	 */
 	function removeActiveKey(keyName) {
 		var keyCode = getKeyCode(keyName);
-		if(keyCode === '91' || keyCode === '92') { activeKeys = []; } //remove all key on release of super.
+		if (keyCode === '91' || keyCode === '92') { activeKeys = []; } //remove all key on release of super.
 		else { activeKeys.splice(activeKeys.indexOf(keyName), 1); }
 	}
 
@@ -916,9 +916,9 @@
 	function registerLocale(localeName, localeMap) {
 
 		//validate arguments
-		if(typeof localeName !== 'string') { throw new Error('Cannot register new locale. The locale name must be a string.'); }
-		if(typeof localeMap !== 'object') { throw new Error('Cannot register ' + localeName + ' locale. The locale map must be an object.'); }
-		if(typeof localeMap.map !== 'object') { throw new Error('Cannot register ' + localeName + ' locale. The locale map is invalid.'); }
+		if (typeof localeName !== 'string') { throw new Error('Cannot register new locale. The locale name must be a string.'); }
+		if (typeof localeMap !== 'object') { throw new Error('Cannot register ' + localeName + ' locale. The locale map must be an object.'); }
+		if (typeof localeMap.map !== 'object') { throw new Error('Cannot register ' + localeName + ' locale. The locale map is invalid.'); }
 
 		//modify the map according to exceptions
 		for ( var i = 0, exceptions = localeMap.exceptions, len = exceptions.length; i < len; i++ ) {
@@ -933,7 +933,7 @@
 		}
 
 		//stash the locale
-		if(!localeMap.macros) { localeMap.macros = []; }
+		if (!localeMap.macros) { localeMap.macros = []; }
 		locales[localeName] = localeMap;
 	}
 
@@ -945,9 +945,9 @@
 	function getSetLocale(localeName) {
 
 		//if a new locale is given then set it
-		if(localeName) {
-			if(typeof localeName !== 'string') { throw new Error('Cannot set locale. The locale name must be a string.'); }
-			if(!locales[localeName]) { throw new Error('Cannot set locale to ' + localeName + ' because it does not exist. If you would like to submit a ' + localeName + ' locale map for KeyboardJS please submit it at https://github.com/RobertWHurst/KeyboardJS/issues.'); }
+		if (localeName) {
+			if (typeof localeName !== 'string') { throw new Error('Cannot set locale. The locale name must be a string.'); }
+			if (!locales[localeName]) { throw new Error('Cannot set locale to ' + localeName + ' because it does not exist. If you would like to submit a ' + localeName + ' locale map for KeyboardJS please submit it at https://github.com/RobertWHurst/KeyboardJS/issues.'); }
 
 			//set the current map and macros
 			map = locales[localeName].map;
@@ -973,14 +973,14 @@
         var keyPressed = false;
 
         return KeyboardJS.on(keyCombo, function() {
-            if(!keyPressed) {
+            if (!keyPressed) {
                 keyPressed = true;
-                if(typeof keyDownCallback === 'function') { keyDownCallback(); }
+                if (typeof keyDownCallback === 'function') { keyDownCallback(); }
             }
         }, function(){
-            if(keyPressed) {
+            if (keyPressed) {
                 keyPressed = false;
-                if(typeof keyUpCallback === 'function') { keyUpCallback(); }
+                if (typeof keyUpCallback === 'function') { keyUpCallback(); }
             }
         });
     }
