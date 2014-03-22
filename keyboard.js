@@ -332,9 +332,9 @@
 	function keydown(event) {
 		var keyNames, keyName, kI;
 		keyNames = getKeyName(event.keyCode);
-		if(keyNames.length < 1) { return; }
+		if (keyNames.length < 1) { return; }
 		event.isRepeat = false;
-		for(kI = 0; kI < keyNames.length; kI += 1) {
+		for (kI = 0; kI < keyNames.length; kI += 1) {
 		    keyName = keyNames[kI];
 		    if (getActiveKeys().indexOf(keyName) != -1)
 		        event.isRepeat = true;
@@ -351,8 +351,8 @@
 	function keyup(event) {
 		var keyNames, kI;
 		keyNames = getKeyName(event.keyCode);
-		if(keyNames.length < 1) { return; }
-		for(kI = 0; kI < keyNames.length; kI += 1) {
+		if (keyNames.length < 1) { return; }
+		for (kI = 0; kI < keyNames.length; kI += 1) {
 			removeActiveKey(keyNames[kI]);
 		}
 		pruneMacros();
@@ -378,9 +378,9 @@
 	 */
 	function getKeyCode(keyName) {
 		var keyCode;
-		for(keyCode in map) {
-			if(!map.hasOwnProperty(keyCode)) { continue; }
-			if(map[keyCode].indexOf(keyName) > -1) { return keyCode; }
+		for (keyCode in map) {
+			if (!map.hasOwnProperty(keyCode)) { continue; }
+			if (map[keyCode].indexOf(keyName) > -1) { return keyCode; }
 		}
 		return false;
 	}
@@ -397,10 +397,10 @@
 	 * @param  {Array}	injectedKeys
 	 */
 	function createMacro(combo, injectedKeys) {
-		if(typeof combo !== 'string' && (typeof combo !== 'object' || typeof combo.push !== 'function')) {
+		if (typeof combo !== 'string' && (typeof combo !== 'object' || typeof combo.push !== 'function')) {
 			throw new Error("Cannot create macro. The combo must be a string or array.");
 		}
-		if(typeof injectedKeys !== 'object' || typeof injectedKeys.push !== 'function') {
+		if (typeof injectedKeys !== 'object' || typeof injectedKeys.push !== 'function') {
 			throw new Error("Cannot create macro. The injectedKeys must be an array.");
 		}
 		macros.push([combo, injectedKeys]);
@@ -413,10 +413,10 @@
 	 */
 	function removeMacro(combo) {
 		var macro;
-		if(typeof combo !== 'string' && (typeof combo !== 'object' || typeof combo.push !== 'function')) { throw new Error("Cannot remove macro. The combo must be a string or array."); }
-		for(mI = 0; mI < macros.length; mI += 1) {
+		if (typeof combo !== 'string' && (typeof combo !== 'object' || typeof combo.push !== 'function')) { throw new Error("Cannot remove macro. The combo must be a string or array."); }
+		for (mI = 0; mI < macros.length; mI += 1) {
 			macro = macros[mI];
-			if(compareCombos(combo, macro[0])) {
+			if (compareCombos(combo, macro[0])) {
 				removeActiveKey(macro[1]);
 				macros.splice(mI, 1);
 				break;
@@ -431,11 +431,11 @@
 	 */
 	function executeMacros() {
 		var mI, combo, kI;
-		for(mI = 0; mI < macros.length; mI += 1) {
+		for (mI = 0; mI < macros.length; mI += 1) {
 			combo = parseKeyCombo(macros[mI][0]);
-			if(activeMacros.indexOf(macros[mI]) === -1 && isSatisfiedCombo(combo)) {
+			if (activeMacros.indexOf(macros[mI]) === -1 && isSatisfiedCombo(combo)) {
 				activeMacros.push(macros[mI]);
-				for(kI = 0; kI < macros[mI][1].length; kI += 1) {
+				for (kI = 0; kI < macros[mI][1].length; kI += 1) {
 					addActiveKey(macros[mI][1][kI]);
 				}
 			}
@@ -449,10 +449,10 @@
 	 */
 	function pruneMacros() {
 		var mI, combo, kI;
-		for(mI = 0; mI < activeMacros.length; mI += 1) {
+		for (mI = 0; mI < activeMacros.length; mI += 1) {
 			combo = parseKeyCombo(activeMacros[mI][0]);
-			if(isSatisfiedCombo(combo) === false) {
-				for(kI = 0; kI < activeMacros[mI][1].length; kI += 1) {
+			if (isSatisfiedCombo(combo) === false) {
+				for (kI = 0; kI < activeMacros[mI][1].length; kI += 1) {
 					removeActiveKey(activeMacros[mI][1][kI]);
 				}
 				activeMacros.splice(mI, 1);
