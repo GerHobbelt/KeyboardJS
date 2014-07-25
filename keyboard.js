@@ -601,10 +601,12 @@
 	 */
 	function removeBindingByKeyCombo(keyCombo) {
 		var bI, binding, keyName;
-		for(bI = 0; bI < bindings.length; bI += 1) {
+		for(bI = bindings.length - 1; bI >= 0; --bI) {
 			binding = bindings[bI];
 			if(compareCombos(keyCombo, binding.keyCombo)) {
-				bindings.splice(bI, 1); bI -= 1;
+				bindings.splice(bI, 1);
+				if(activeBindings.indexOf(binding) > -1)
+					activeBindings.splice(activeBindings.indexOf(binding));
 			}
 		}
 	}
@@ -616,11 +618,13 @@
 	function removeBindingByKeyName(keyName) {
 		var bI, kI, binding;
 		if(keyName) {
-			for(bI = 0; bI < bindings.length; bI += 1) {
+			for(bI = bindings.length - 1; bI >= 0; --bI) {
 				binding = bindings[bI];
 				for(kI = 0; kI < binding.keyCombo.length; kI += 1) {
 					if(binding.keyCombo[kI].indexOf(keyName) > -1) {
-						bindings.splice(bI, 1); bI -= 1;
+						bindings.splice(bI, 1);
+						if(activeBindings.indexOf(binding) > -1)
+							activeBindings.splice(activeBindings.indexOf(binding));
 						break;
 					}
 				}
