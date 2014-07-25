@@ -658,7 +658,8 @@
 					}
 				}
 				if(bindingKeysSatisfied && isSatisfiedCombo(binding.keyCombo)) {
-					activeBindings.push(binding);
+					if(activeBindings.indexOf(binding) == -1)
+						activeBindings.push(binding);
 					for(kI = 0; kI < bindingKeys.length; kI += 1) {
 						index = remainingKeys.indexOf(bindingKeys[kI]);
 						if(index > -1) {
